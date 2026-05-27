@@ -10,4 +10,8 @@
   function clearRole() {
     localStorage.removeItem("userRole");
   }
+
+  window.setRole = setRole;
+  window.getRole = getRole;
+  window.clearRole = clearRole;
   

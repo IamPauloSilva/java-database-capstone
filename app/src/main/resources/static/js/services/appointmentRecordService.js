@@ -5,12 +5,19 @@ const APPOINTMENT_API = `${API_BASE_URL}/appointments`;
 
 //This is for the doctor to get all the patient Appointments
 export async function getAllAppointments(date, patientName, token) {
-  const response = await fetch(`${APPOINTMENT_API}/${date}/${patientName}/${token}`);
+  const doctorToken = token || localStorage.getItem("token");
+  const doctorId = parseInt(localStorage.getItem("doctorId"), 10);
+  if (!doctorId || !doctorToken) {
+    throw new Error("Missing doctor session context");
+  }
+  const params = new URLSearchParams();
+  if (patientName) params.append("patientName", patientName);
+  const response = await fetch(`${APPOINTMENT_API}/${doctorId}/${date}/${doctorToken}?${params.toString()}`);
   if (!response.ok) {
     throw new Error("Failed to fetch appointments");
   }
-
-  return await response.json();
+  const data = await response.json();
+  return data.appointments || [];
 }
 
 export async function bookAppointment(appointment, token) {

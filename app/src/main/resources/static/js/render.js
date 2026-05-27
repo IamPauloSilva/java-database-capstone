@@ -6,15 +6,19 @@ function selectRole(role) {
   if (role === "admin") {
     if (token) {
       window.location.href = `/adminDashboard/${token}`;
+    } else {
+      window.location.href = "/";
     }
-  } if (role === "patient") {
+  } else if (role === "patient") {
     window.location.href = "/pages/patientDashboard.html";
   } else if (role === "doctor") {
     if (token) {
       window.location.href = `/doctorDashboard/${token}`;
-    } else if (role === "loggedPatient") {
-      window.location.href = "loggedPatientDashboard.html";
+    } else {
+      window.location.href = "/";
     }
+  } else if (role === "loggedPatient") {
+    window.location.href = "/pages/loggedPatientDashboard.html";
   }
 }
 
@@ -26,3 +30,6 @@ function renderContent() {
     return;
   }
 }
+
+window.selectRole = selectRole;
+window.renderContent = renderContent;

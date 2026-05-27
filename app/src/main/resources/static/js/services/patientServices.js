@@ -57,7 +57,7 @@ export async function getPatientData(token) {
 // the Backend API for fetching the patient record(visible in Doctor Dashboard) and Appointments (visible in Patient Dashboard) are same based on user(patient/doctor).
 export async function getPatientAppointments(id, token, user) {
   try {
-    const response = await fetch(`${PATIENT_API}/${id}/${user}/${token}`);
+    const response = await fetch(`${PATIENT_API}/appointments/${id}/${token}/${user}`);
     const data = await response.json();
     console.log(data.appointments)
     if (response.ok) {
@@ -73,7 +73,10 @@ export async function getPatientAppointments(id, token, user) {
 
 export async function filterAppointments(condition, name, token) {
   try {
-    const response = await fetch(`${PATIENT_API}/filter/${condition}/${name}/${token}`, {
+    const params = new URLSearchParams();
+    if (condition) params.append("condition", condition);
+    if (name) params.append("name", name);
+    const response = await fetch(`${PATIENT_API}/appointments/filter/${token}?${params.toString()}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

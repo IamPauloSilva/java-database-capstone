@@ -49,7 +49,7 @@ function renderAppointments(appointments) {
       <td>${appointment.doctorName}</td>
       <td>${appointment.appointmentDate}</td>
       <td>${appointment.appointmentTimeOnly}</td>
-      <td>${appointment.status == 0 ? `<img src="../assets/images/edit/edit.png" alt="Edit" class="prescription-btn" data-id="${appointment.patientId}">` : "-"}</td>
+      <td>${appointment.status == 0 ? `<img src="../assets/images/edit/edit.png" alt="Edit" class="prescription-btn" data-id="${appointment.id}">` : "-"}</td>
     `;
 
     if (appointment.status == 0) {
